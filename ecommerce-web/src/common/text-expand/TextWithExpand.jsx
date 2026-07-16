@@ -1,9 +1,11 @@
 import { useState } from "react";
 
+// Hiển thị văn bản rút gọn và cho phép mở rộng nội dung.
 const TextWithExpand = ({ text, maxLength = 60 }) => {
     if (!text) return;
     const [isExpanded, setIsExpanded] = useState(false);
 
+    // Mở rộng hoặc thu gọn phần nội dung đang hiển thị.
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
     };

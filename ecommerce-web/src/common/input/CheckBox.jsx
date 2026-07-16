@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Hiển thị ô chọn và đồng bộ trạng thái với dữ liệu biểu mẫu.
 const CheckBox = ({ id, name, checked, onChange, error, labelForm, lableCheckBox, className }) => {
   return (
     <div className="mb-4">

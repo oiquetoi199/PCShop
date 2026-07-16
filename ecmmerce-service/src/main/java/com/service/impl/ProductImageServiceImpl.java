@@ -26,17 +26,20 @@ public class ProductImageServiceImpl implements ProductImageService {
     @Autowired
     private ProductImageRepository productImageRepository;
 
+    /** Kiểm tra và lưu hình ảnh sản phẩm vào cơ sở dữ liệu. */
     @Override
     public void save(List<ProductImage> productImages) {
         productImageRepository.saveAll(productImages);
     }
 
+    /** Tìm danh sách hình ảnh sản phẩm theo mã sản phẩm. */
     @Override
     @Transactional
     public List<ProductImage> findByProductId(String productId) {
         return productImageRepository.findByProductId(productId);
     }
 
+    /** Cập nhật thông tin hình ảnh sản phẩm theo dữ liệu được cung cấp. */
     @Override
     @Transactional
     public void update(ProductImageUpdateDTO productImageUpdateDTO) throws Exception {
@@ -98,18 +101,21 @@ public class ProductImageServiceImpl implements ProductImageService {
         }
     }
 
+    /** Xóa hình ảnh sản phẩm theo mã sản phẩm. */
     @Override
     @Transactional
     public void deleteByProductId(String productId) {
         productImageRepository.deleteByProductId(productId);
     }
 
+    /** Tìm ảnh đại diện của sản phẩm theo mã sản phẩm. */
     @Override
     @Transactional
     public List<ProductImage> findByProductIdAndIsThumbnail(String productId, Boolean isThumbnail) {
         return productImageRepository.findByProductIdAndIsThumbnail(productId, isThumbnail);
     }
 
+    /** Lấy danh sách banner phục vụ chức năng quản trị. */
     @Override
     @Transactional
     public List<BannerDTO> getBannerList() {
@@ -127,6 +133,7 @@ public class ProductImageServiceImpl implements ProductImageService {
                 .collect(Collectors.toList());
     }
 
+    /** Cập nhật nội dung banner hiển thị trên giao diện. */
     @Override
     @Transactional
     public void updateBanner(ProductImageUpdateDTO productImageUpdateDTO) throws Exception {

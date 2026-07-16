@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Hiển thị hộp thoại thông báo với trạng thái thành công hoặc lỗi.
 const Modal = ({ isOpen, onClose, title, message, isError }) => {
   if (!isOpen) return null;
   return (

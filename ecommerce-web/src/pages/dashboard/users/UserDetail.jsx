@@ -6,6 +6,7 @@ import Input from '../../../common/input/Input';
 import Select from '../../../common/select/Select';
 import Button from '../../../common/button/Button';
 
+// Hiển thị chi tiết tài khoản và quyền của người dùng.
 const UserDetail = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -48,6 +49,7 @@ const UserDetail = () => {
     const [user, setUser] = useState(null);
     const { id } = useParams();
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -55,6 +57,7 @@ const UserDetail = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -68,6 +71,7 @@ const UserDetail = () => {
     };
 
     useEffect(() => {
+        // Gọi API để tải thông tin tài khoản người dùng được chọn.
         const fetchUser = async () => {
             try {
                 setLoading(true);
@@ -109,6 +113,7 @@ const UserDetail = () => {
     }, [id]);
 
     useEffect(() => {
+        // Gọi API để tải danh sách vai trò có thể gán cho người dùng.
         const fetchRoles = async () => {
             try {
                 setLoading(true);
@@ -139,6 +144,7 @@ const UserDetail = () => {
     }, []);
 
     useEffect(() => {
+        // Tải danh sách tỉnh hoặc thành phố để người dùng chọn địa chỉ.
         const fetchProvinces = async () => {
             try {
                 const response = await fetch('https://provinces.open-api.vn/api/p/');
@@ -152,6 +158,7 @@ const UserDetail = () => {
     }, []);
 
     useEffect(() => {
+        // Tải danh sách quận hoặc huyện theo tỉnh, thành phố đã chọn.
         const fetchDistricts = async () => {
             if (formData.province) {
                 try {
@@ -170,6 +177,7 @@ const UserDetail = () => {
     }, [formData.province]);
 
     useEffect(() => {
+        // Tải danh sách phường hoặc xã theo quận, huyện đã chọn.
         const fetchWards = async () => {
             if (formData.district) {
                 try {
@@ -186,12 +194,14 @@ const UserDetail = () => {
         fetchWards();
     }, [formData.district]);
 
+    // Cập nhật dữ liệu biểu mẫu theo trường nhập liệu vừa thay đổi.
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
         setErrors({ ...errors, [name]: '' });
     };
 
+    // Kiểm tra dữ liệu người dùng nhập trước khi tiếp tục xử lý.
     const validate = () => {
         let valid = true;
         const newErrors = {
@@ -244,6 +254,7 @@ const UserDetail = () => {
     };
 
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async () => {
         if (validate()) {
             setLoading(true);
@@ -297,6 +308,7 @@ const UserDetail = () => {
         }
     };
 
+    // Đặt lại dữ liệu biểu mẫu về trạng thái ban đầu.
     const handleReset = () => {
         setFormData({
             username: user.username || '',

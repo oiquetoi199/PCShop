@@ -4,6 +4,7 @@ import LoadingLayout from '../../../common/loading/LoadingLayout';
 import Modal from '../../../common/alert/Modal';
 import ProductContact from '../../../section/client/ProductContact';
 
+// Tải và hiển thị trang chi tiết sản phẩm cần liên hệ.
 const ProductContactDetailPage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const { id } = useParams();
@@ -16,6 +17,7 @@ const ProductContactDetailPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // Gọi API để tải thông tin chi tiết của sản phẩm.
         const fetchProductDetails = async () => {
             try {
                 const response = await fetch(`${apiUrl}/product/guest/product-detail/${id}`);
@@ -32,6 +34,7 @@ const ProductContactDetailPage = () => {
         fetchProductDetails();
     }, [id]);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -39,10 +42,12 @@ const ProductContactDetailPage = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
     };
 
+    // Mở trang liên hệ nhanh với thông tin sản phẩm hiện tại.
     const handleContactNow = (product) => {
         navigate('/contact-now', {
             state: {

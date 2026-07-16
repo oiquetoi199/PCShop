@@ -13,6 +13,7 @@ public class RoleResDTO {
     String code;
     String name;
 
+    /** Khởi tạo đối tượng RoleResDTO với các dữ liệu ban đầu. */
     public RoleResDTO(Long code, String name) {
         this.code = String.valueOf(code);
         this.name = name;

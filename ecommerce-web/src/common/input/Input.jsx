@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Hiển thị ô nhập liệu dùng chung với nhãn và thông báo lỗi.
 const Input = ({ id, name, value, onChange, error, placeholder, label, className, type }) => {
   return (
     <div className="mb-2">

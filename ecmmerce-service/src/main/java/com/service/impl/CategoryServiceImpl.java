@@ -33,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private ProductRepository productRepository;
 
+    /** Chuyển đổi, kiểm tra và lưu dữ liệu được cung cấp vào cơ sở dữ liệu. */
     @Override
     public void saveData(CategoryRequestDTO categoryRequestDTO) {
         if (categoryRequestDTO != null) {
@@ -66,6 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    /** Lấy danh sách danh mục có phân trang. */
     @Override
     public Page<CategoryResponseDTO> findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -74,6 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categories.map(this::convertToCategoryResponseDTO);
     }
 
+    /** Chuyển thực thể danh mục sang DTO phản hồi và bổ sung dữ liệu liên quan. */
     private CategoryResponseDTO convertToCategoryResponseDTO(Category category) {
         return new CategoryResponseDTO(
                 category.getId(),
@@ -89,6 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
         );
     }
 
+    /** Tìm danh mục theo mã định danh. */
     @Override
     public CategoryResponseDTO findById(String id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
@@ -107,6 +111,7 @@ public class CategoryServiceImpl implements CategoryService {
         )).orElse(null);
     }
 
+    /** Xóa danh mục theo mã định danh. */
     @Override
     @Transactional
     public String deleteById(String id) {
@@ -136,6 +141,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
+    /** Lấy danh sách các danh mục cha. */
     @Override
     public List<CategoryResponseDTO> findByParentIsNull() {
         List<Category> categories = categoryRepository.findByParentIsNullOrderByPositionAsc();
@@ -143,6 +149,7 @@ public class CategoryServiceImpl implements CategoryService {
         return getCategoryResponseDTOS(categories);
     }
 
+    /** Lấy danh sách các danh mục con. */
     @Override
     public List<CategoryResponseDTO> findByParentIsNotNull() {
         List<Category> categories = categoryRepository.findByParentIsNotNullOrderByPositionAsc();
@@ -150,6 +157,7 @@ public class CategoryServiceImpl implements CategoryService {
         return getCategoryResponseDTOS(categories);
     }
 
+    /** Cập nhật thứ tự hiển thị của các danh mục. */
     @Override
     public void updatePosition(List<CategoryRequestDTO> categoryRequestDTOList) {
         List<Category> categories = new ArrayList<>();
@@ -163,6 +171,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.saveAll(categories);
     }
 
+    /** Chuyển danh sách danh mục sang DTO dùng cho phản hồi API. */
     private List<CategoryResponseDTO> getCategoryResponseDTOS(List<Category> categories) {
         return categories.stream()
                 .map(category -> new CategoryResponseDTO(

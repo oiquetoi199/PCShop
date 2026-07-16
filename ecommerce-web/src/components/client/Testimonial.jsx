@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import TextWithExpandHTML from '../../common/text-expand/TextWithExpandHTML';
 import { FaCheck } from 'react-icons/fa';
 
+// Tạo cấu hình hiệu ứng trượt lên với độ trễ được truyền vào.
 const SlideUp = (delay) => {
   return {
     hidden: {
@@ -21,12 +22,14 @@ const SlideUp = (delay) => {
   }
 };
 
+// Hiển thị sản phẩm mới nhất trên trang chủ.
 const Testimonial = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Gọi API để tải sản phẩm mới nhất trên hệ thống.
     const fetchProductDetail = async () => {
       const response = await fetch(`${apiUrl}/product/guest/product-new`);
       const text = await response.text();
@@ -37,10 +40,12 @@ const Testimonial = () => {
     fetchProductDetail();
   }, [apiUrl]);
 
+  // Hiển thị ngay nội dung hoặc mục đang được chọn.
   const handleShowNow = (id) => {
     navigate(`/product-detail/${id}`);
   };
 
+  // Chuyển người dùng đến chức năng liên hệ về sản phẩm.
   const handleContact = (id) => {
     navigate(`/product-contact/${id}`);
   };

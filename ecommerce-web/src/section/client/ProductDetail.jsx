@@ -3,12 +3,14 @@ import Button from '../../common/button/Button';
 import { formatLargeNumber } from "../../utils/FormatUtils";
 import RadioButton from '../../common/input/RadioButton';
 
+// Hiển thị thông tin chi tiết, giá và thao tác mua sản phẩm.
 const ProductDetail = ({ product, onAddToCart, onBuyNow }) => {
   const [selectedImage, setSelectedImage] = useState(product.image);
   const [quantity, setQuantity] = useState(1);
   const [selectedProductType, setSelectedProductType] = useState(""); 
   const [totalPrice, setTotalPrice] = useState(product.newPrice > 0 ? product.newPrice : product.price);
 
+  // Cập nhật số lượng sản phẩm và tính lại dữ liệu giỏ hàng.
   const handleQuantityChange = (amount) => {
     setQuantity((prevQuantity) => {
       const newQuantity = Math.max(1, prevQuantity + amount);
@@ -21,6 +23,7 @@ const ProductDetail = ({ product, onAddToCart, onBuyNow }) => {
     setTotalPrice(pricePerItem * quantity);
   }, [quantity, product.newPrice, product.price]);
 
+  // Cập nhật dữ liệu của loại sản phẩm đang được chỉnh sửa.
   const handleProductTypeChange = (e) => {
     setSelectedProductType(e.target.value);
   };

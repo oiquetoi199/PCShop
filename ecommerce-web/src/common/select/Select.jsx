@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Hiển thị danh sách lựa chọn và trả lại giá trị người dùng chọn.
 const Select = ({ 
     id, 
     name, 

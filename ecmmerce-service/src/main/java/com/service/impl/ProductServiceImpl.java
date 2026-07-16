@@ -45,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductTypeService productTypeService;
 
+    /** Chuyển đổi, kiểm tra và lưu dữ liệu được cung cấp vào cơ sở dữ liệu. */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void  saveData(ProductSaveDTO productSaveDTO) throws Exception {
@@ -87,6 +88,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /** Lấy danh sách sản phẩm kèm tên danh mục để hiển thị hoặc quản trị. */
     @Override
     @Transactional
     public Page<ProductListDTO> findAllProductsWithCategoryName(int page, int size) {
@@ -116,6 +118,7 @@ public class ProductServiceImpl implements ProductService {
         return new PageImpl<>(updatedProductList, pageable, productPage.getTotalElements());
     }
 
+    /** Tìm sản phẩm theo mã định danh. */
     @Override
     @Transactional
     public ProductDataUpdateDTO findById(String id) {
@@ -140,6 +143,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    /** Cập nhật thông tin sản phẩm và các dữ liệu liên quan. */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateProduct(ProductSaveDTO productSaveDTO) {
@@ -163,6 +167,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /** Gắn thông tin loại sản phẩm vào dữ liệu sản phẩm trả về. */
     private void setDataProductType(ProductSaveDTO productSaveDTO, Product resultSave, List<ProductType> productTypes) {
         for (String productType : productSaveDTO.getProductTypes()) {
             ProductType productTypeData = new ProductType();
@@ -177,6 +182,7 @@ public class ProductServiceImpl implements ProductService {
         productTypeService.save(productTypes);
     }
 
+    /** Xóa sản phẩm theo mã định danh. */
     @Override
     public void deleteById(String id) {
         productRepository.deleteById(id);
@@ -185,6 +191,7 @@ public class ProductServiceImpl implements ProductService {
         productTypeService.deleteAll(productTypesByProductId);
     }
 
+    /** Lấy danh sách sản phẩm nổi bật, có thể lọc theo danh mục. */
     @Override
     @Transactional
     public List<ProductGroupByCategoryDTO> findPopularRecipe() {
@@ -211,6 +218,7 @@ public class ProductServiceImpl implements ProductService {
         return productGroupByCategoryDTOS;
     }
 
+    /** Nhóm và gắn danh sách sản phẩm theo từng danh mục. */
     private void setProductByCategoryGroup(Category category, List<Category> categoriesGroup, List<PopularRecipeDTO> popularRecipeDTOS, ProductGroupByCategoryDTO productGroupByCategoryDTO) {
         for (Category categoryGroup : categoriesGroup) {
             List<Product> products = productRepository.findTop3ByCategoryIdOrderByCreateDateDesc(categoryGroup.getId());
@@ -249,6 +257,7 @@ public class ProductServiceImpl implements ProductService {
         productGroupByCategoryDTO.setPopularRecipeDTOS(popularRecipeDTOS);
     }
 
+    /** Lấy thông tin chi tiết của sản phẩm theo mã định danh. */
     @Override
     @Transactional
     public ProductDetailDTO findProductDetail(String id) {
@@ -285,6 +294,7 @@ public class ProductServiceImpl implements ProductService {
         return productDetailDTO;
     }
 
+    /** Lấy danh sách sản phẩm bán chạy dựa trên dữ liệu đơn hàng. */
     @Override
     @Transactional
     public List<ProductDetailDTO> findProductBestSale() {
@@ -308,12 +318,14 @@ public class ProductServiceImpl implements ProductService {
         return productDetailDTOS;
     }
 
+    /** Lấy danh sách sản phẩm mới nhất để hiển thị cho người dùng. */
     @Override
     @Transactional
     public ProductDetailDTO findProductNew() {
         return productRepository.findProductNew();
     }
 
+    /** Tính giá mới của sản phẩm sau khi áp dụng tỷ lệ giảm giá. */
     private BigDecimal getNewPrice(int saleRate, BigDecimal price){
         if (saleRate > 0) {
             BigDecimal rate = BigDecimal.valueOf(saleRate).divide(BigDecimal.valueOf(100));
@@ -324,6 +336,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /** Lấy sản phẩm theo danh mục và sắp xếp từ mới đến cũ. */
     @Override
     @Transactional
     public Page<PopularRecipeDTO> findByCategoryIdOrderByCreateDateDesc(String categoryId, int page, int size) {
@@ -352,6 +365,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /** Tìm danh mục cha theo mã định danh. */
     @Override
     @Transactional
     public ProductGroupByCategoryDTO findByIdAndParentIsNull(String id) {
@@ -374,6 +388,7 @@ public class ProductServiceImpl implements ProductService {
         return productGroupByCategoryDTO;
     }
 
+    /** Tìm kiếm sản phẩm theo từ khóa và các điều kiện được cung cấp. */
     @Override
     @Transactional
     public Page<PopularRecipeDTO> searchProduct(String categoryId, String keyword, int page, int size) {
@@ -419,6 +434,7 @@ public class ProductServiceImpl implements ProductService {
         return new PageImpl<>(popularRecipeDTOs, pageable, totalPage);
     }
 
+    /** Chuyển đối tượng nguồn sang DTO phù hợp để trả về cho client. */
     private ProductPopularDTO convertToDTO(Product product) {
         List<ProductImage> productImages = productImageService.findByProductIdAndIsThumbnail(product.getId(), true);
         String image = null;

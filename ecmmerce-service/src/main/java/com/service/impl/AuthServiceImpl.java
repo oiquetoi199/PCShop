@@ -28,6 +28,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserRepository userRepository;
 
+    /** Xác thực thông tin đăng nhập và trả về mã JWT cùng quyền của người dùng. */
     public AuthResponseDTO login(LoginRequestDTO loginRequestDTO) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword()));
@@ -54,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
         return authResponseDTO;
     }
 
+    /** Kiểm tra tính hợp lệ và thời hạn của mã JWT. */
     @Override
     public boolean validateToken(String token) {
         if (token.startsWith("Bearer ")) {

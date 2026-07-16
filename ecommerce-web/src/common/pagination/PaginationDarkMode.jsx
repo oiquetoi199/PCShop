@@ -1,5 +1,6 @@
 import React from "react";
 
+// Hiển thị thanh phân trang phù hợp với giao diện tối.
 const PaginationDarkMode = ({ currentPage, totalPages, onPageChange }) => {
     return (
         <div className="pagination mt-5 flex justify-center items-center">

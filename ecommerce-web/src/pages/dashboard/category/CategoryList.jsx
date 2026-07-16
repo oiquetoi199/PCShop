@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ConfirmModal from '../../../common/alert/ModalConfirm';
 import PaginationDarkMode from '../../../common/pagination/PaginationDarkMode';
 
+// Hiển thị danh sách danh mục và các thao tác quản trị.
 const CategoryList = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [categories, setCategories] = useState([]);
@@ -31,6 +32,7 @@ const CategoryList = () => {
         fetchCategories(currentPage, pageSize);
     }, [categoryIdToDelete, currentPage, pageSize]);  
     
+    // Gọi API để tải danh sách danh mục theo trang hiện tại.
     const fetchCategories = async (page = 0, size = pageSize) => {
         try {
             setLoading(true);
@@ -67,10 +69,12 @@ const CategoryList = () => {
         }
     };
 
+    // Cập nhật trang hiện tại và tải dữ liệu của trang được chọn.
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -78,6 +82,7 @@ const CategoryList = () => {
         setIsModalOpen(true);
     };
   
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -89,15 +94,18 @@ const CategoryList = () => {
         }
     };
 
+    // Điều hướng hoặc chuyển giao diện sang chế độ chỉnh sửa dữ liệu.
     const handleEdit = (id) => {
         navigate(`/dashboard/update-category/${id}`);
     };
 
+    // Ghi nhận dữ liệu cần xóa và mở hộp thoại xác nhận.
     const handleDelete = (id) => {
         setCategoryIdToDelete(id);
         setIsOpenConfirm(true);
     };
 
+    // Gửi yêu cầu xóa dữ liệu đã xác nhận và cập nhật lại danh sách hiển thị.
     const confirmDelete = async () => {
         setIsOpenConfirm(false);
         setLoading(true);

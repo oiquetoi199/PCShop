@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Modal from '../../../common/alert/Modal';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 
+// Tạo cấu hình hiệu ứng trượt lên với độ trễ được truyền vào.
 const SlideUp = (delay) => {
   return {
     hidden: {
@@ -22,6 +23,7 @@ const SlideUp = (delay) => {
   };
 };
 
+// Hiển thị danh sách sản phẩm của một nhóm danh mục.
 const ProductItemPage = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const { id } = useParams();
@@ -62,6 +64,7 @@ const ProductItemPage = () => {
     }
   }, [id, currentPage, pageSize, searchState.statusClick]);
 
+  // Gọi API để tải danh sách sản phẩm.
   const fetchProducts = async (id, page = 0, size = pageSize) => {
     try {
       setLoading(true);
@@ -78,6 +81,7 @@ const ProductItemPage = () => {
     }
   };
 
+  // Gọi API để tìm kiếm sản phẩm theo từ khóa và bộ lọc.
   const fetchProductsSearch = async (categoryId, keyword, page = 0, size = pageSize) => {
     try {
       setLoading(true);
@@ -94,6 +98,7 @@ const ProductItemPage = () => {
     }
   };
 
+  // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
   const openModal = (title, message, error) => {
     setModalTitle(title);
     setModalMessage(message);
@@ -101,18 +106,22 @@ const ProductItemPage = () => {
     setIsModalOpen(true);
   };
 
+  // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  // Thêm sản phẩm cần mua và chuyển người dùng đến bước đặt hàng.
   const handleBuyNow = (id) => {
     navigate(`/product-detail/${id}`);
   };
 
+  // Cập nhật trang hiện tại và tải dữ liệu của trang được chọn.
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
+  // Chuyển người dùng đến chức năng liên hệ về sản phẩm.
   const handleContact = (id) => {
     navigate(`/product-contact/${id}`);
   };

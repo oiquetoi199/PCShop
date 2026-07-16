@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Hiển thị thẻ số liệu tổng quan trên trang quản trị.
 const Card = ({ icon, title, value, link }) => {
   return (
     <Link to={link} className="block bg-white p-4 dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition">

@@ -9,6 +9,7 @@ import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
 import { formatLargeNumber } from '../../../utils/FormatUtils';
 import { FaTrashAlt } from 'react-icons/fa';
 
+// Hiển thị biểu mẫu đặt hàng và xử lý xác nhận đơn hàng.
 const OrderProductPage = () => {
   const location = useLocation();
   const { cartProducts, cartTotalQuantity, cartTotalPrice, action } = location.state || {};
@@ -61,6 +62,7 @@ const OrderProductPage = () => {
   const [responseText, setResponseText] = useState("");
   const { username, setUsername } = useOutletContext();
 
+  // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
   const openModal = (title, message, error) => {
     setModalTitle(title);
     setModalMessage(message);
@@ -68,6 +70,7 @@ const OrderProductPage = () => {
     setIsModalOpen(true);
   };
 
+  // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
   const closeModal = () => {
     setIsModalOpen(false);
 
@@ -85,6 +88,7 @@ const OrderProductPage = () => {
   };
 
   useEffect(() => {
+    // Tải danh sách tỉnh hoặc thành phố để người dùng chọn địa chỉ.
     const fetchProvinces = async () => {
       try {
         const response = await fetch('https://provinces.open-api.vn/api/p/');
@@ -98,6 +102,7 @@ const OrderProductPage = () => {
   }, []);
 
   useEffect(() => {
+    // Tải danh sách quận hoặc huyện theo tỉnh, thành phố đã chọn.
     const fetchDistricts = async () => {
       if (formData.province) {
         try {
@@ -116,6 +121,7 @@ const OrderProductPage = () => {
   }, [formData.province]);
 
   useEffect(() => {
+    // Tải danh sách phường hoặc xã theo quận, huyện đã chọn.
     const fetchWards = async () => {
       if (formData.district) {
         try {
@@ -133,6 +139,7 @@ const OrderProductPage = () => {
   }, [formData.district]);
 
   useEffect(() => {
+          // Gọi API để tải thông tin người dùng hiện tại và điền vào biểu mẫu đặt hàng.
           const fetchUser = async () => {
               try {
                   setLoading(true);
@@ -174,12 +181,14 @@ const OrderProductPage = () => {
           fetchUser();
       }, []);
 
+  // Cập nhật dữ liệu biểu mẫu theo trường nhập liệu vừa thay đổi.
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: '' });
   };
 
+  // Kiểm tra tính hợp lệ của toàn bộ dữ liệu trong biểu mẫu.
   const validateForm = () => {
     const newErrors = {};
     if (!formData.fullName) newErrors.fullName = 'Họ và tên là bắt buộc';
@@ -201,6 +210,7 @@ const OrderProductPage = () => {
     return true;
   };
 
+  // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
   const handleSubmit = async () => {
     if (validateForm()) {
         setLoading(true);
@@ -256,6 +266,7 @@ const OrderProductPage = () => {
     }
   };
 
+  // Cập nhật số lượng sản phẩm và tính lại dữ liệu giỏ hàng.
   const handleQuantityChange = async (id, delta) => {
     if (action == 0) {
       try {
@@ -329,6 +340,7 @@ const OrderProductPage = () => {
     } 
   };
 
+  // Gọi API để tải giỏ hàng của người dùng và cập nhật tổng số lượng, tổng tiền.
   const fetchCartData = async () => {
     try {
         setLoading(true);
@@ -376,6 +388,7 @@ useEffect(() => {
   }
 }, []);
 
+  // Xóa trực tiếp sản phẩm được chọn khỏi giỏ hàng trong bước đặt hàng.
   const handleDelete = async (id) => {
     if (action == 0) {
       try {

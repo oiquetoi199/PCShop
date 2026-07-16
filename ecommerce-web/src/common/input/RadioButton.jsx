@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Hiển thị lựa chọn radio và chuyển giá trị đã chọn về component cha.
 const RadioButton = ({ id, name, value, onChange, checked, label, className, classNameLabel, error }) => {
   return (
     <div className="flex items-center mb-2">

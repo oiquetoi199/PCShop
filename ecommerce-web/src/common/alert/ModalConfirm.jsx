@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Hiển thị hộp thoại yêu cầu người dùng xác nhận thao tác.
 const ConfirmModal = ({ isOpen, onClose, onConfirm, title, message }) => {
   if (!isOpen) return null;
 

@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaHome, FaSignOutAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { ThemeCotext } from '../../context/ThemeContextProvider';
 
+// Hiển thị thanh điều hướng và các thao tác tài khoản, tìm kiếm, giỏ hàng.
 const Navbar = () => {
     const { theme, toggleTheme } = useContext(ThemeCotext);
     const navigate = useNavigate();
 
+    // Xóa thông tin đăng nhập cục bộ và đưa người dùng về trạng thái chưa xác thực.
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");

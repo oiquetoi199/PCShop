@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductType, String> {
+    /** Tìm danh sách loại sản phẩm theo mã sản phẩm. */
     List<ProductType> findByProductId(String id);
 }

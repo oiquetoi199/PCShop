@@ -29,6 +29,7 @@ public class ProductDetailDTO {
     private String categoryId;
     private List<ProductType> productTypes;
 
+    /** Khởi tạo đối tượng ProductDetailDTO với các dữ liệu ban đầu. */
     public ProductDetailDTO(String id, String productName, String productInfo, String image, BigDecimal price, String isButtonContact, int saleRate) {
         this.id = id;
         this.productName = productName;

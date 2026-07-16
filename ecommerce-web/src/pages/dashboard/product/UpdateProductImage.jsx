@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 import Modal from '../../../common/alert/Modal';
 
+// Hiển thị giao diện quản lý hình ảnh của sản phẩm.
 const UpdateProductImage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const { id } = useParams();
@@ -23,6 +24,7 @@ const UpdateProductImage = () => {
 
     const navigate = useNavigate();
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -30,6 +32,7 @@ const UpdateProductImage = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -42,6 +45,7 @@ const UpdateProductImage = () => {
     };
 
     useEffect(() => {
+        // Gọi API để tải hình ảnh của sản phẩm.
         const fetchProductImages = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -87,6 +91,7 @@ const UpdateProductImage = () => {
         fetchProductImages();
     }, [loadNewData]);
 
+    // Tiếp nhận danh sách hình ảnh mới và cập nhật phần xem trước.
     const handleImageChange = (event) => {
         const files = Array.from(event.target.files);
         const imageFiles = files.filter(file => file.type.startsWith("image/"));
@@ -102,14 +107,17 @@ const UpdateProductImage = () => {
         }
     };
 
+    // Loại bỏ hình ảnh mới khỏi danh sách tải lên.
     const handleImageRemove = (index) => {
         setImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
+    // Đánh dấu hoặc loại bỏ hình ảnh đã lưu khỏi sản phẩm.
     const handleExistingImageRemove = (id) => {
         setExistingImages((prevImages) => prevImages.filter((image) => image.id !== id));
     };
 
+    // Kiểm tra dữ liệu người dùng nhập trước khi tiếp tục xử lý.
     const validate = () => {
         if (existingImages.length == 0 && images.length == 0) {
             setError("Vui lòng tải ảnh lên.");
@@ -123,6 +131,7 @@ const UpdateProductImage = () => {
         return true;
     }
 
+    // Lưu dữ liệu hiện tại và phản hồi kết quả cho người dùng.
     const handleSave = async () => {
         if (validate()) {
             setLoading(true);

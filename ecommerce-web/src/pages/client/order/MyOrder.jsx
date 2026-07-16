@@ -9,6 +9,7 @@ import { formatDateTime } from "../../../utils/DateUtils";
 import { formatCurrency } from '../../../utils/FormatCurrency';
 import PaginationNormal from '../../../common/pagination/PaginationNormal';
 
+// Hiển thị danh sách đơn hàng của người dùng hiện tại.
 const MyOrder = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [orders, setOrders] = useState([]);
@@ -32,6 +33,7 @@ const MyOrder = () => {
         fetchOrders(currentPage, pageSize);
     }, [orderIdToDelete, currentPage, pageSize]);
 
+    // Gọi API để tải danh sách đơn hàng theo trang hiện tại.
     const fetchOrders = async (page = 0, size = pageSize) => {
         try {
             setLoading(true);
@@ -68,10 +70,12 @@ const MyOrder = () => {
         }
     };
 
+    // Cập nhật trang hiện tại và tải dữ liệu của trang được chọn.
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -79,6 +83,7 @@ const MyOrder = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -91,19 +96,23 @@ const MyOrder = () => {
         }
     };
 
+    // Điều hướng hoặc chuyển giao diện sang chế độ chỉnh sửa dữ liệu.
     const handleEdit = (id) => {
         navigate(`/my-order-detail/${id}`);
     };
 
+    // Mở trang hoặc khu vực xem chi tiết dữ liệu được chọn.
     const handleView = (id) => {
         navigate(`/my-order-detail/${id}`);
     };
 
+    // Ghi nhận dữ liệu cần xóa và mở hộp thoại xác nhận.
     const handleDelete = (id) => {
         setOrderIdToDelete(id);
         setIsOpenConfirm(true);
     };
 
+    // Gửi yêu cầu xóa dữ liệu đã xác nhận và cập nhật lại danh sách hiển thị.
     const confirmDelete = async () => {
         setIsOpenConfirm(false);
         setLoading(true);
@@ -142,6 +151,7 @@ const MyOrder = () => {
         }
     };    
 
+    // Chuyển mã trạng thái đơn hàng thành nội dung dễ đọc để hiển thị.
     const getOrderStatus = (status) => {
         switch (status) {
             case 0: return 'Chờ xác nhận';

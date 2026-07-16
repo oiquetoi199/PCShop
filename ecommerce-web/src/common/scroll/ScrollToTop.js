@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+// Đưa vị trí cuộn về đầu trang mỗi khi đường dẫn thay đổi.
 const ScrollToTop = () => {
     const { pathname } = useLocation();
 

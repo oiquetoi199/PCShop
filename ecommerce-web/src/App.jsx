@@ -192,6 +192,7 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Khởi tạo bộ định tuyến và hiển thị cấu trúc chính của ứng dụng.
 const App = () => {
   return (
     <Suspense fallback={<LoadingLayout loading={true} />}>

@@ -6,6 +6,7 @@ import Input from '../../../common/input/Input';
 import Select from '../../../common/select/Select';
 import Button from '../../../common/button/Button';
 
+// Hiển thị và cho phép cập nhật thông tin của người dùng hiện tại.
 const UserInfo = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -34,6 +35,7 @@ const UserInfo = () => {
     const { username, setUsername } = useOutletContext();
     const [user, setUser] = useState(null);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -41,6 +43,7 @@ const UserInfo = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -54,6 +57,7 @@ const UserInfo = () => {
     };
 
     useEffect(() => {
+        // Gọi API để tải thông tin của người dùng hiện tại.
         const fetchUser = async () => {
             try {
                 setLoading(true);
@@ -94,6 +98,7 @@ const UserInfo = () => {
     }, []);
 
     useEffect(() => {
+        // Tải danh sách tỉnh hoặc thành phố để người dùng chọn địa chỉ.
         const fetchProvinces = async () => {
             try {
                 const response = await fetch('https://provinces.open-api.vn/api/p/');
@@ -107,6 +112,7 @@ const UserInfo = () => {
     }, []);
 
     useEffect(() => {
+        // Tải danh sách quận hoặc huyện theo tỉnh, thành phố đã chọn.
         const fetchDistricts = async () => {
             if (formData.province) {
                 try {
@@ -125,6 +131,7 @@ const UserInfo = () => {
     }, [formData.province]);
 
     useEffect(() => {
+        // Tải danh sách phường hoặc xã theo quận, huyện đã chọn.
         const fetchWards = async () => {
             if (formData.district) {
                 try {
@@ -141,6 +148,7 @@ const UserInfo = () => {
         fetchWards();
     }, [formData.district]);
 
+    // Cập nhật dữ liệu biểu mẫu theo trường nhập liệu vừa thay đổi.
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -148,6 +156,7 @@ const UserInfo = () => {
         setErrors({ ...errors, [name]: '' });
     };
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async () => {
         if (validateForm()) {
             setLoading(true);
@@ -199,6 +208,7 @@ const UserInfo = () => {
         }
     };
 
+    // Kiểm tra tính hợp lệ của toàn bộ dữ liệu trong biểu mẫu.
     const validateForm = () => {
         const newErrors = {};
     
@@ -224,6 +234,7 @@ const UserInfo = () => {
     };
     
 
+    // Hủy thao tác hiện tại và khôi phục trạng thái phù hợp.
     const handleCancel = () => {
         setFormData({
           fullName: '',

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 import Modal from '../../../common/alert/Modal';
 
+// Hiển thị số liệu tổng quan trên trang quản trị.
 const Dashboard = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -26,6 +27,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // Gọi API để tải các số liệu tổng quan của trang quản trị.
         const fetchDashboard = async () => {
             try {
                 setLoading(true);
@@ -67,6 +69,7 @@ const Dashboard = () => {
         fetchDashboard();
     }, []);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -74,6 +77,7 @@ const Dashboard = () => {
         setIsModalOpen(true);
     };
   
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 

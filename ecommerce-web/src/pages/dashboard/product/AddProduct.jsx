@@ -3,6 +3,7 @@ import ProductForm from './ProductForm';
 import Modal from '../../../common/alert/Modal';
 import { useNavigate } from 'react-router-dom';
 
+// Hiển thị biểu mẫu thêm sản phẩm và xử lý kết quả lưu.
 const AddProduct = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -15,6 +16,7 @@ const AddProduct = () => {
 
     const navigate = useNavigate();
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async (formData) => {
         try {
             const token = localStorage.getItem('token');
@@ -49,6 +51,7 @@ const AddProduct = () => {
     };
     
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -56,6 +59,7 @@ const AddProduct = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 

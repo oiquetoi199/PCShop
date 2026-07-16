@@ -1,3 +1,4 @@
+// Định dạng ngày và giờ sang chuỗi hiển thị dễ đọc.
 export const formatDateTime = (date) => {
     if (!date) {
         return '';
@@ -11,7 +12,7 @@ export const formatDateTime = (date) => {
     return `${formattedDate} ${formattedTime}`;
 };
 
-//dd/mm/yyyy
+// Định dạng giá trị ngày sang chuỗi hiển thị dễ đọc.
 export const formatDate = (date) => {
     if (!date) {
         return '';

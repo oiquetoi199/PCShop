@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Hiển thị nút dùng chung và chuyển tiếp sự kiện nhấn cho component cha.
 const Button = ({ onClick, children }) => {
   return (
     <button

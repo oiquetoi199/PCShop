@@ -6,14 +6,17 @@ import { Outlet } from "react-router-dom";
 // import FloatingContact from "../../components/client/FloatingContact.jsx";
 import Search from "../../components/client/Search";
 
+// Bố trí giao diện chung cho khu vực khách hàng.
 const MainLayout = () => {
     const [loginPopup, setLoginPopup] = useState(false);
     const [username, setUsername] = useState(localStorage.getItem("username") || "");
 
+    // Mở hoặc đóng cửa sổ đăng nhập theo thao tác của người dùng.
     const handleLoginPopup = () => {
         setLoginPopup(!loginPopup);
     };
 
+    // Lưu kết quả đăng nhập và cập nhật giao diện sau khi xác thực thành công.
     const handleLoginSuccess = (username) => {
         setUsername(username);
         localStorage.setItem("username", username);

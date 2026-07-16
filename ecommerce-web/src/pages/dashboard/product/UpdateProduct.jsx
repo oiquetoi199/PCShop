@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 import Modal from '../../../common/alert/Modal';
 
+// Tải dữ liệu và hiển thị biểu mẫu cập nhật sản phẩm.
 const UpdateProduct = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const { id } = useParams();
@@ -21,6 +22,7 @@ const UpdateProduct = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        // Gọi API để tải dữ liệu sản phẩm cần cập nhật.
         const fetchProductData = async () => {
             try {
                 setLoading(true);
@@ -53,6 +55,7 @@ const UpdateProduct = () => {
         fetchProductData();
     }, [id]);
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async (formData) => {
         try {
             // const formDataObj = {};
@@ -95,6 +98,7 @@ const UpdateProduct = () => {
     };
     
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -102,6 +106,7 @@ const UpdateProduct = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 

@@ -6,6 +6,7 @@ import TextArea from '../../../common/input/TextArea';
 import Button from '../../../common/button/Button';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 
+// Hiển thị biểu mẫu để khách hàng gửi thông tin liên hệ.
 const ContactPage = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -33,6 +34,7 @@ const ContactPage = () => {
   const [ward, setWard] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
   const openModal = (title, message, error) => {
     setModalTitle(title);
     setModalMessage(message);
@@ -40,11 +42,13 @@ const ContactPage = () => {
     setIsModalOpen(true);
   };
 
+  // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
   useEffect(() => {
+    // Tải danh sách tỉnh hoặc thành phố để người dùng chọn địa chỉ.
     const fetchProvinces = async () => {
       try {
         const response = await fetch('https://provinces.open-api.vn/api/p/');
@@ -58,6 +62,7 @@ const ContactPage = () => {
   }, []);
 
   useEffect(() => {
+    // Tải danh sách quận hoặc huyện theo tỉnh, thành phố đã chọn.
     const fetchDistricts = async () => {
       if (formData.province) {
         try {
@@ -76,6 +81,7 @@ const ContactPage = () => {
   }, [formData.province]);
 
   useEffect(() => {
+    // Tải danh sách phường hoặc xã theo quận, huyện đã chọn.
     const fetchWards = async () => {
       if (formData.district) {
         try {
@@ -92,6 +98,7 @@ const ContactPage = () => {
     fetchWards();
   }, [formData.district]);
 
+  // Cập nhật dữ liệu biểu mẫu theo trường nhập liệu vừa thay đổi.
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -113,6 +120,7 @@ const ContactPage = () => {
     setErrors({ ...errors, [name]: '' });
   };
 
+  // Kiểm tra tính hợp lệ của toàn bộ dữ liệu trong biểu mẫu.
   const validateForm = () => {
     const newErrors = {};
     if (!formData.fullName) newErrors.fullName = 'Họ và tên là bắt buộc';
@@ -134,6 +142,7 @@ const ContactPage = () => {
     return true;
   };
 
+  // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
   const handleSubmit = async () => {
     if (validateForm()) {
         setLoading(true);
@@ -170,6 +179,7 @@ const ContactPage = () => {
     }
   };
 
+  // Hủy thao tác hiện tại và khôi phục trạng thái phù hợp.
   const handleCancel = () => {
     setFormData({
       fullName: '',

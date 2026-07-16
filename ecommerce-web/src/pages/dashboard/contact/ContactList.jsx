@@ -7,6 +7,7 @@ import ConfirmModal from '../../../common/alert/ModalConfirm';
 import TextWithExpand from '../../../common/text-expand/TextWithExpand';
 import PaginationDarkMode from '../../../common/pagination/PaginationDarkMode';
 
+// Hiển thị danh sách yêu cầu liên hệ để quản trị viên xử lý.
 const ContactList = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [contacts, setContacts] = useState([]);
@@ -32,6 +33,7 @@ const ContactList = () => {
         fetchContacts(currentPage, pageSize);
     }, [contactIdToDelete, currentPage, pageSize]); 
 
+    // Gọi API để tải danh sách yêu cầu liên hệ.
     const fetchContacts = async (page = 0, size = pageSize) => {
         try {
             setLoading(true);
@@ -68,10 +70,12 @@ const ContactList = () => {
         }
     };   
 
+    // Cập nhật trang hiện tại và tải dữ liệu của trang được chọn.
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -79,6 +83,7 @@ const ContactList = () => {
         setIsModalOpen(true);
     };
   
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -90,6 +95,7 @@ const ContactList = () => {
         }
     };
 
+    // Gửi yêu cầu cập nhật trạng thái xử lý của thông tin liên hệ.
     const handleEdit = async (id) => {
         setLoading(true);
         const token = localStorage.getItem('token');
@@ -130,11 +136,13 @@ const ContactList = () => {
         }
     };
 
+    // Ghi nhận dữ liệu cần xóa và mở hộp thoại xác nhận.
     const handleDelete = (id) => {
         setContactIdToDelete(id);
         setIsOpenConfirm(true);
     };
 
+    // Gửi yêu cầu xóa dữ liệu đã xác nhận và cập nhật lại danh sách hiển thị.
     const confirmDelete = async () => {
         setIsOpenConfirm(false);
         setLoading(true);

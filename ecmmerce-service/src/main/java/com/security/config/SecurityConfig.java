@@ -22,21 +22,25 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtFilter jwtFilter;
 
+    /** Khởi tạo đối tượng SecurityConfig với các dữ liệu ban đầu. */
     public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtFilter jwtFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtFilter = jwtFilter;
     }
 
+    /** Khởi tạo bộ mã hóa BCrypt dùng để bảo vệ mật khẩu người dùng. */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /** Cung cấp AuthenticationManager để thực hiện quá trình xác thực tài khoản. */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /** Cấu hình chuỗi bộ lọc bảo mật, quyền truy cập và cơ chế xác thực cho các API. */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

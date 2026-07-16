@@ -5,6 +5,7 @@ import SpinnerLoad from "../../common/loading/SpinnerLoad";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
+// Hiển thị khu vực đăng nhập và các thao tác tài khoản.
 const Signin = ({ handleSignIn }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({ username: "", email: "", password: "" });
@@ -15,6 +16,7 @@ const Signin = ({ handleSignIn }) => {
     const [isError, setIsError] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    // Kiểm tra dữ liệu người dùng nhập trước khi tiếp tục xử lý.
     const validate = () => {
         const newErrors = {};
         if (!formData.username) newErrors.username = "Tên đăng nhập là bắt buộc";
@@ -27,6 +29,7 @@ const Signin = ({ handleSignIn }) => {
         return Object.keys(newErrors).length === 0;
     };
 
+    // Cập nhật state khi giá trị của trường nhập liệu thay đổi.
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -40,6 +43,7 @@ const Signin = ({ handleSignIn }) => {
         });
     };
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setTitleModalMessage(title);
         setModalMessage(message);
@@ -47,6 +51,7 @@ const Signin = ({ handleSignIn }) => {
         setIsModalOpen(true);
     };
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async () => {
         if (validate()) {
             setLoading(true);
@@ -83,6 +88,7 @@ const Signin = ({ handleSignIn }) => {
         }
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
     };

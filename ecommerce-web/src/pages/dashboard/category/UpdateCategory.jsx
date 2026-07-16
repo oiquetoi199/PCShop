@@ -4,6 +4,7 @@ import LoadingLayout from '../../../common/loading/LoadingLayout';
 import { useNavigate, useParams } from 'react-router-dom';
 import Modal from '../../../common/alert/Modal';
 
+// Tải dữ liệu và hiển thị biểu mẫu cập nhật danh mục.
 const UpdateCategory = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const { id } = useParams();
@@ -23,6 +24,7 @@ const UpdateCategory = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
     
+        // Gọi API để tải thông tin danh mục cần chỉnh sửa.
         const fetchCategory = async () => {
             try {
                 const response = await fetch(`${apiUrl}/category/detail/${id}`, {
@@ -56,6 +58,7 @@ const UpdateCategory = () => {
         fetchCategory();
     }, [id]);
     
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async (formData) => {
         const token = localStorage.getItem('token');
 
@@ -92,6 +95,7 @@ const UpdateCategory = () => {
     };
     
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -99,6 +103,7 @@ const UpdateCategory = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 

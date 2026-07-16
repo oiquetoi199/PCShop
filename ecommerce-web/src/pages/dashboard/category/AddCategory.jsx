@@ -3,6 +3,7 @@ import CategoryForm from './CategoryForm';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../../common/alert/Modal';
 
+// Hiển thị biểu mẫu thêm danh mục và xử lý kết quả lưu.
 const AddCategory = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -15,6 +16,7 @@ const AddCategory = () => {
 
     const navigate = useNavigate();
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async (formData) => {
         const token = localStorage.getItem('token');
     
@@ -50,6 +52,7 @@ const AddCategory = () => {
         }
     };
     
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -57,6 +60,7 @@ const AddCategory = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 

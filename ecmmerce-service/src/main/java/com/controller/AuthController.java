@@ -24,6 +24,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /** Kiểm tra dữ liệu đăng ký, mã hóa mật khẩu và tạo tài khoản người dùng mới. */
     @PostMapping("/register")
     public ResponseEntity<MessageResponse> registerUser(@RequestBody RegisterDTO registerDTO) {
         MessageResponse messageResponse = new MessageResponse();
@@ -43,12 +44,14 @@ public class AuthController {
         }
     }
 
+    /** Xác thực thông tin đăng nhập và trả về mã JWT cùng quyền của người dùng. */
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         AuthResponseDTO authResponseDTO = authService.login(loginRequestDTO);
         return ResponseEntity.ok().body(authResponseDTO);
     }
 
+    /** Kiểm tra tính hợp lệ và thời hạn của mã JWT. */
     @GetMapping("/validate-token")
     public ResponseEntity<MessageResponse> validateToken(@RequestHeader("Authorization") String token) {
         MessageResponse messageResponse = new MessageResponse();

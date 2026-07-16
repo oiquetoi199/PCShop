@@ -3,15 +3,18 @@ import Login from "./Login";
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
+// Điều khiển việc mở và đóng cửa sổ đăng nhập.
 const LoginPopup = ({ loginPopup, handleLoginPopup, onLoginSuccess }) => {
     const [showSignIn, setShowSignIn] = useState(false);
     const loginPopupRef = useRef();
 
+    // Mở hoặc thực hiện quy trình đăng nhập người dùng.
     const handleSignIn = () => {
         setShowSignIn(!showSignIn);
     };
 
     useEffect(() => {
+        // Đóng vùng nội dung khi người dùng nhấp ra bên ngoài.
         const handleClickOutside = (e) => {
             if (loginPopupRef.current && e.target === loginPopupRef.current) {
                 handleLoginPopup(false);

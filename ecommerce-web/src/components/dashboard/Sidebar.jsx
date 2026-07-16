@@ -5,14 +5,17 @@ import { IoAddCircle, IoAlbums, IoListCircle } from 'react-icons/io5';
 import { MdOutlineContactPhone } from 'react-icons/md';
 import { Link, useLocation } from 'react-router-dom';
 
+// Hiển thị menu điều hướng của khu vực quản trị.
 const SideBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openMenus, setOpenMenus] = useState({});
 
+    // Mở hoặc thu gọn thanh điều hướng bên.
     const toggleSidebar = () => {
         setIsOpen((prev) => !prev);
     };
 
+    // Chuyển đổi trạng thái hiển thị của menu.
     const toggleMenu = (menu) => {
         setOpenMenus((prev) => ({
             ...prev,
@@ -39,6 +42,7 @@ const SideBar = () => {
         setOpenMenus(menuState);
     }, [location.pathname]);
 
+    // Kiểm tra đường dẫn hiện tại có khớp với mục điều hướng hay không.
     const isActive = (path) => location.pathname === path;
 
 

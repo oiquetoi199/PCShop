@@ -4,6 +4,7 @@ import ThemeContextProvider from "../../context/ThemeContextProvider";
 import Sidebar from "../../components/dashboard/Sidebar";
 import Navbar from "../../components/dashboard/Navbar";
 
+// Bố trí giao diện chung cho khu vực quản trị.
 const DashboardLayout = () => {
   return (
     <ThemeContextProvider>

@@ -6,6 +6,7 @@ import Modal from '../../../common/alert/Modal';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 import { useNavigate } from 'react-router-dom';
 
+// Hiển thị biểu mẫu dùng chung để thêm hoặc cập nhật danh mục.
 const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [formData, setFormData] = useState(initialData || { categoryName: "", parentId: "", color: "" });
@@ -23,6 +24,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         fetchCategories();
     }, []);  
 
+    // Gọi API để tải danh sách danh mục và cập nhật dữ liệu lựa chọn.
     const fetchCategories = async () => {
         try {
             setLoading(true);
@@ -51,6 +53,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         }
     };
 
+    // Cập nhật state khi giá trị của trường nhập liệu thay đổi.
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -64,6 +67,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         });
     };
 
+    // Kiểm tra dữ liệu người dùng nhập trước khi tiếp tục xử lý.
     const validate = () => {
         const newErrors = { categoryName: '' };
 
@@ -79,6 +83,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         return Object.values(newErrors).every((error) => error === '');
     };
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -86,6 +91,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -97,6 +103,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         }
     };
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async () => {
         if (validate()) {
             setLoading(true);
@@ -111,6 +118,7 @@ const CategoryForm = ({ onSubmit, initialData, titleForm }) => {
         }
     };
 
+    // Đặt lại dữ liệu biểu mẫu về trạng thái ban đầu.
     const handleReset = () => {
         setFormData({ categoryName: '', parentId: '', color: '' });
         setErrors({ categoryName: '' });

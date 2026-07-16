@@ -1,5 +1,6 @@
 import React from "react";
 
+// Hiển thị thanh phân trang và phát sự kiện đổi trang.
 const PaginationNormal = ({ currentPage, totalPages, onPageChange }) => {
     return (
         <div className="pagination mt-5 flex justify-center items-center">

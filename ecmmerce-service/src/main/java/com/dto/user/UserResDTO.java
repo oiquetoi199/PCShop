@@ -24,6 +24,7 @@ public class UserResDTO {
     private String province;
     private String roleId;
 
+    /** Khởi tạo đối tượng UserResDTO với các dữ liệu ban đầu. */
     public UserResDTO(String id, String username, String fullName, String email, String phone, String address, String wards, String district, String province, Long roleId, String role, LocalDate createDate, LocalDate updateDate) {
         this.id = id;
         this.username = username;
@@ -48,6 +49,7 @@ public class UserResDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate updateDate;
 
+    /** Khởi tạo đối tượng UserResDTO với các dữ liệu ban đầu. */
     public UserResDTO(String id, String username, String fullName, String email, String phone, String address, String role, LocalDate createDate, LocalDate updateDate) {
         this.id = id;
         this.username = username;

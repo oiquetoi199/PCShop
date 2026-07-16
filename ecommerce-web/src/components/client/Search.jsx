@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Hiển thị ô tìm kiếm và điều hướng đến danh sách kết quả.
 const Search = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({ keyword: "", categoryId: "all" });
@@ -19,6 +20,7 @@ const Search = () => {
       })
     }
 
+    // Gọi API để tải danh sách danh mục và cập nhật dữ liệu lựa chọn.
     const fetchCategories = async () => {
       const response = await fetch(`${apiUrl}/category/guest/find-child`);
       const data = await response.json();
@@ -27,6 +29,7 @@ const Search = () => {
     fetchCategories();
   }, []);
 
+  // Xử lý từ khóa tìm kiếm và tải hoặc điều hướng đến kết quả phù hợp.
   const handleSearch = async () => {
     navigate('/category-group/search', {
       state: {
@@ -39,6 +42,7 @@ const Search = () => {
     setIsOpen(false);
   };
 
+  // Cập nhật state khi giá trị của trường nhập liệu thay đổi.
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -47,6 +51,7 @@ const Search = () => {
     });
   };
 
+  // Xử lý phím được nhấn để hỗ trợ thao tác bàn phím.
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
   };

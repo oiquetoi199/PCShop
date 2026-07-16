@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
 //    @Autowired
 //    private PolicyRepository policyRepository;
 
+    /** Kiểm tra dữ liệu đăng ký, mã hóa mật khẩu và tạo tài khoản người dùng mới. */
     public void registerUser(RegisterDTO registerDTO) {
         if (userRepository.findByUsername(registerDTO.getUsername()) != null) {
             throw new ExceptionUtil("Username already taken", "USERNAME_TAKEN");
@@ -72,16 +73,19 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    /** Tìm người dùng theo mã định danh. */
     @Override
     public UserResDTO findById(String id) {
         return userRepository.findByUserId(id);
     }
 
+    /** Lấy thông tin tài khoản của người dùng hiện tại. */
     @Override
     public User findByUsername() {
         return userRepository.findByUsername(AuthUtils.getCurrentUsername());
     }
 
+    /** Cập nhật thông tin tài khoản và quyền của người dùng. */
     @Transactional
     @Override
     public void updateUser(UserReqDTO userReqDTO) {
@@ -111,22 +115,26 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    /** Lấy danh sách người dùng có phân trang để phục vụ quản trị. */
     @Override
     public Page<UserResDTO> findUserList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepository.findUserList(pageable);
     }
 
+    /** Xóa tài khoản người dùng theo mã định danh. */
     @Override
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 
+    /** Lấy danh sách vai trò của người dùng để trả về cho client. */
     @Override
     public List<RoleResDTO> getRoles() {
         return userRepository.findAllRoles();
     }
 
+    /** Tổng hợp các số liệu cần thiết để hiển thị trên trang quản trị. */
     @Override
     public DashboardDTO getDashboard() {
         Long userTotal = userRepository.count();

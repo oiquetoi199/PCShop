@@ -19,6 +19,7 @@ public class CartProductServiceImpl implements CartProductService {
     @Autowired
     private CartProductRepository cartProductRepository;
 
+    /** Kiểm tra và lưu sản phẩm trong giỏ hàng vào cơ sở dữ liệu. */
     @Override
     @Transactional
     public void save(CartProduct cartProduct) {
@@ -38,6 +39,7 @@ public class CartProductServiceImpl implements CartProductService {
         }
     }
 
+    /** Lấy giỏ hàng của người dùng hiện tại và tính các giá trị tổng hợp. */
     @Override
     @Transactional
     public CartProductDTO findByUsername() {
@@ -59,6 +61,7 @@ public class CartProductServiceImpl implements CartProductService {
         return cartProductDTO;
     }
 
+    /** Cập nhật thông tin sản phẩm trong giỏ hàng theo dữ liệu được cung cấp. */
     @Override
     @Transactional
     public void update(String id, int quantity) {
@@ -82,11 +85,13 @@ public class CartProductServiceImpl implements CartProductService {
         }
     }
 
+    /** Xóa sản phẩm trong giỏ hàng theo mã định danh. */
     @Override
     public void delete(String id) {
         cartProductRepository.deleteById(id);
     }
 
+    /** Xóa toàn bộ danh sách sản phẩm trong giỏ hàng được truyền vào. */
     @Override
     public void deleteAll(List<CartProduct> cartProducts) {
         cartProductRepository.deleteAll(cartProducts);

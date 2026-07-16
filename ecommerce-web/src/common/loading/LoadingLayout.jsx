@@ -1,6 +1,7 @@
 import React from "react";
 import SpinnerLoad from "../loading/SpinnerLoad";
 
+// Hiển thị lớp phủ tải dữ liệu trong thời gian chờ xử lý.
 const LoadingLayout = ({ loading, children }) => {
     return (
         <>

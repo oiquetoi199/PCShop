@@ -18,6 +18,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
+    /** Kiểm tra và lưu thông tin liên hệ vào cơ sở dữ liệu. */
     @PostMapping("/guest/save")
     public ResponseEntity<MessageResponse> save(@RequestBody Contact contact) {
         MessageResponse messageResponse = new MessageResponse();
@@ -33,12 +34,14 @@ public class ContactController {
         return ResponseEntity.ok().body(messageResponse);
     }
 
+    /** Lấy danh sách thông tin liên hệ có phân trang. */
     @GetMapping("/find-all")
     public ResponseEntity<Page<Contact>> findAll(@RequestParam int page,
                                                  @RequestParam int size) {
         return ResponseEntity.ok().body(contactService.findAll(page, size));
     }
 
+    /** Kiểm tra và lưu thông tin liên hệ vào cơ sở dữ liệu. */
     @PutMapping("/update-status")
     public ResponseEntity<MessageResponse> save(@RequestParam String id) {
         MessageResponse messageResponse = new MessageResponse();
@@ -54,6 +57,7 @@ public class ContactController {
         return ResponseEntity.ok().body(messageResponse);
     }
 
+    /** Xóa thông tin liên hệ theo mã định danh. */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<MessageResponse> delete(@PathVariable String id) {
         MessageResponse messageResponse = new MessageResponse();

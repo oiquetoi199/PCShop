@@ -12,8 +12,11 @@ import java.util.List;
 
 @Repository
 public interface LogoRepository extends JpaRepository<Logo, String> {
+    /** Xóa nhiều logo có mã nằm trong danh sách được cung cấp. */
     void deleteByIdIn(List<String> listIds);
+    /** Tìm bản ghi logo đầu tiên thỏa mãn điều kiện truy vấn. */
     Logo findFirstByIsLogoTrue();
+    /** Cập nhật logo được chọn làm logo hiển thị chính của hệ thống. */
     @Modifying
     @Transactional
     @Query("UPDATE Logo l SET l.isLogo = :isLogo WHERE l.id = :id")

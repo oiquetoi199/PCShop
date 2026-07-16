@@ -9,6 +9,7 @@ import { formatDateTime } from "../../../utils/DateUtils";
 import { formatCurrency } from '../../../utils/FormatCurrency';
 import PaginationDarkMode from '../../../common/pagination/PaginationDarkMode';
 
+// Hiển thị danh sách đơn hàng để quản trị viên theo dõi và xử lý.
 const OrderList = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [orders, setOrders] = useState([]);
@@ -27,6 +28,7 @@ const OrderList = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 5;
 
+    // Gọi API để tải danh sách đơn hàng theo trang hiện tại.
     const fetchOrders = async (page = 0, size = pageSize) => {
         try {
             setLoading(true);
@@ -63,6 +65,7 @@ const OrderList = () => {
         }
     };
 
+    // Cập nhật trang hiện tại và tải dữ liệu của trang được chọn.
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -71,6 +74,7 @@ const OrderList = () => {
         fetchOrders(currentPage, pageSize);
     }, [orderIdToDelete, currentPage, pageSize]);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -78,6 +82,7 @@ const OrderList = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -89,6 +94,7 @@ const OrderList = () => {
         }
     };
 
+    // Xác nhận thông tin đặt hàng và gửi yêu cầu tạo đơn lên máy chủ.
     const handleConfirmOrder = async (id, status) => {
         setLoading(true);
         const token = localStorage.getItem('token');
@@ -130,15 +136,18 @@ const OrderList = () => {
         }
     };
 
+    // Mở trang hoặc khu vực xem chi tiết dữ liệu được chọn.
     const handleView = (id) => {
         navigate(`/dashboard/order-detail/${id}`);
     };
 
+    // Ghi nhận dữ liệu cần xóa và mở hộp thoại xác nhận.
     const handleDelete = (id) => {
         setOrderIdToDelete(id);
         setIsOpenConfirm(true);
     };
 
+    // Gửi yêu cầu xóa dữ liệu đã xác nhận và cập nhật lại danh sách hiển thị.
     const confirmDelete = async () => {
         setIsOpenConfirm(false);
         setLoading(true);
@@ -177,6 +186,7 @@ const OrderList = () => {
         }
     };
 
+    // Chuyển mã trạng thái đơn hàng thành nội dung dễ đọc để hiển thị.
     const getOrderStatus = (status) => {
         switch (status) {
             case 0: return 'Chờ xác nhận';

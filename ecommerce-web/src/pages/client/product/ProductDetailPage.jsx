@@ -5,6 +5,7 @@ import ProductDetail from '../../../section/client/ProductDetail';
 import Modal from '../../../common/alert/Modal';
 import LoginPopup from '../../../components/LoginPopup/LoginPopup';
 
+// Tải và hiển thị trang chi tiết của một sản phẩm.
 const ProductDetailPage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const { id } = useParams();
@@ -22,6 +23,7 @@ const ProductDetailPage = () => {
     
 
     useEffect(() => {
+        // Gọi API để tải thông tin chi tiết của sản phẩm.
         const fetchProductDetails = async () => {
             try {
                 const response = await fetch(`${apiUrl}/product/guest/product-detail/${id}`);
@@ -38,6 +40,7 @@ const ProductDetailPage = () => {
         fetchProductDetails();
     }, [id]);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -45,6 +48,7 @@ const ProductDetailPage = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -61,6 +65,7 @@ const ProductDetailPage = () => {
           }
     };
 
+    // Thêm sản phẩm được chọn vào giỏ hàng của người dùng.
     const handleAddToCart = async (product, quantity, selectedProductType, totalPrice) => {
         if (product.productTypes.length > 0 && !selectedProductType) {
             openModal('Thông báo', 'Vui lòng chọn loại sản phẩm.', true);
@@ -119,6 +124,7 @@ const ProductDetailPage = () => {
         }
     };
 
+    // Thêm sản phẩm cần mua và chuyển người dùng đến bước đặt hàng.
     const handleBuyNow = (product, quantity, selectedProductType, totalPrice) => {
         if (product.productTypes.length > 0 && !selectedProductType) {
             openModal('Thông báo', 'Vui lòng chọn loại sản phẩm.', true);

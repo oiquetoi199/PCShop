@@ -6,6 +6,7 @@ import { formatLargeNumber } from "../../../utils/FormatUtils";
 import { formatDateTime } from "../../../utils/DateUtils";
 import { formatCurrency } from '../../../utils/FormatCurrency';
 
+// Hiển thị chi tiết một đơn hàng của người dùng hiện tại.
 const MyOrderDetail = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const MyOrderDetail = () => {
     const [responseText, setResponseText] = useState('');
     const { id } = useParams();
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, isError) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -25,6 +27,7 @@ const MyOrderDetail = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
         if (responseText === "expired") {
@@ -36,6 +39,7 @@ const MyOrderDetail = () => {
     };
 
     useEffect(() => {
+        // Gọi API để tải chi tiết đơn hàng được chọn.
         const fetchOrderProductDetail = async () => {
             setLoading(true);
             try {
@@ -73,6 +77,7 @@ const MyOrderDetail = () => {
         fetchOrderProductDetail();
     }, [id]);
 
+    // Chuyển mã trạng thái đơn hàng thành nội dung dễ đọc để hiển thị.
     const getOrderStatus = (status) => {
         switch (status) {
             case 0: return 'Chờ xác nhận';

@@ -22,11 +22,13 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
 
+    /** Khởi tạo đối tượng JwtFilter với các dữ liệu ban đầu. */
     public JwtFilter(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
 
+    /** Đọc JWT từ request, xác thực người dùng và thiết lập SecurityContext trước khi chuyển tiếp request. */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");

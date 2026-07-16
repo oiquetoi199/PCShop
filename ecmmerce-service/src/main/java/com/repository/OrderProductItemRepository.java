@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface OrderProductItemRepository extends JpaRepository<OrderProductItem, String> {
 
+    /** Tìm danh sách chi tiết sản phẩm theo mã đơn hàng. */
     List<OrderProductItem> findByOrderProductId(String orderProductId);
 }

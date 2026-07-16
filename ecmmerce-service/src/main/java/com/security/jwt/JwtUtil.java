@@ -22,7 +22,7 @@ public class JwtUtil {
     private long expiration;
 
 
-    // tạo token
+    /** Tạo mã JWT chứa thông tin người dùng và thời hạn sử dụng. */
     public String generateToken(String username) {
         // các thông tin chứa trong token
         return Jwts.builder()
@@ -33,20 +33,21 @@ public class JwtUtil {
                 .compact(); // sinh chuỗi
     }
 
-    // lấy username từ token
+    /** Trích xuất tên đăng nhập từ mã JWT. */
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    // kiểm tra hết hạn
+    /** Kiểm tra mã JWT đã hết hạn hay chưa. */
     public boolean isTokenExpired(String token) {
         return getExpirationDateFromToken(token).before(new Date());
     }
+    /** Lấy thời điểm hết hạn được lưu trong mã JWT. */
     private Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    // đọc jwt
+    /** Trích xuất một thông tin cụ thể từ phần claim của mã JWT. */
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../../common/button/Button';
 
+// Hiển thị thông tin sản phẩm và thao tác gửi yêu cầu liên hệ.
 const ProductContact = ({ product, onContactNow }) => {
   const [selectedImage, setSelectedImage] = useState(product.image);
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Hiển thị vùng nhập văn bản nhiều dòng và đồng bộ giá trị biểu mẫu.
 const TextArea = ({ id, name, value, onChange, error, placeholder, label, className, rows }) => {
   return (
     <div className="mb-4">

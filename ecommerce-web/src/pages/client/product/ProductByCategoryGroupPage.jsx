@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { FaCaretSquareRight } from "react-icons/fa";
 import { formatLargeNumber } from "../../../utils/FormatUtils";
 
+// Tạo cấu hình hiệu ứng trượt lên với độ trễ được truyền vào.
 const SlideUp = (delay) => {
   return {
     hidden: {
@@ -23,6 +24,7 @@ const SlideUp = (delay) => {
   };
 };
 
+// Hiển thị các nhóm sản phẩm thuộc danh mục được chọn.
 const ProductByCategoryGroupPage = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const { id } = useParams();
@@ -35,6 +37,7 @@ const ProductByCategoryGroupPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Gọi API để tải các nhóm sản phẩm nổi bật.
     const fetchPopularRecipes = async () => {
       try {
         const response = await fetch(`${apiUrl}/product/guest/popular-recipe-category/${id}`);
@@ -50,18 +53,22 @@ const ProductByCategoryGroupPage = () => {
     fetchPopularRecipes();
   }, [id]);
 
+  // Thêm sản phẩm cần mua và chuyển người dùng đến bước đặt hàng.
   const handleBuyNow = (id) => {
     navigate(`/product-detail/${id}`);
   };
 
+  // Chuyển người dùng đến chức năng liên hệ về sản phẩm.
   const handleContact = (id) => {
     navigate(`/product-contact/${id}`);
   };
 
+  // Mở rộng danh sách hoặc nội dung để hiển thị thêm dữ liệu.
   const handleViewMore = (id) => {
     navigate(`/category-group/${id}`);
   };
 
+  // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
   const openModal = (title, message, error) => {
     setModalTitle(title);
     setModalMessage(message);
@@ -69,6 +76,7 @@ const ProductByCategoryGroupPage = () => {
     setIsModalOpen(true);
   };
 
+  // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
   const closeModal = () => {
     setIsModalOpen(false);
   };

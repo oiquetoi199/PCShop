@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckBox from '../../../common/input/CheckBox';
 import CustomQuillEditorText from '../../../common/input/CustomQuillEditorText';
 
+// Hiển thị biểu mẫu thêm hoặc cập nhật sản phẩm và quản lý dữ liệu nhập.
 const ProductForm = ({ onSubmit, initialData, titleForm }) => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -52,6 +53,7 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
     }, [initialData]);
 
     useEffect(() => {
+        // Gọi API để tải danh sách danh mục và cập nhật dữ liệu lựa chọn.
         const fetchCategories = async () => {
             try {
                 setLoading(true);
@@ -84,6 +86,7 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
     }, []);
 
 
+    // Cập nhật state khi giá trị của trường nhập liệu thay đổi.
     const handleChange = (event) => {
         const { name, value, files, checked } = event.target;
 
@@ -125,14 +128,17 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
         });
     };
 
+    // Cập nhật thông tin chi tiết sản phẩm trong biểu mẫu.
     const handleChangeProductInfo = (e) => {
         setFormData(prev => ({ ...prev, productInfo: e.target.value }));
     };
 
+    // Cập nhật nội dung mô tả sản phẩm trong biểu mẫu.
     const handleChangeDescription = (e) => {
         setFormData(prev => ({ ...prev, description: e.target.value }));
     };
 
+    // Loại bỏ hình ảnh được chọn khỏi dữ liệu hiện tại.
     const handleRemoveImage = (indexToRemove) => {
         setFormData({
             ...formData,
@@ -140,6 +146,7 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
         });
     };
 
+    // Kiểm tra dữ liệu người dùng nhập trước khi tiếp tục xử lý.
     const validate = () => {
         const newErrors = { productName: '', price: '', saleRate: '', description: '', productInfo: '', categoryId: '', images: '', isButtonContact: '' };
 
@@ -199,6 +206,7 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
         return Object.values(newErrors).every((error) => error === '');
     };
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -206,6 +214,7 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -217,6 +226,7 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
         }
     };
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async () => {
         if (validate()) {
             setLoading(true);
@@ -256,22 +266,26 @@ const ProductForm = ({ onSubmit, initialData, titleForm }) => {
         }
     };
 
+    // Đặt lại dữ liệu biểu mẫu về trạng thái ban đầu.
     const handleReset = () => {
         setFormData({ productName: '', price: '', saleRate: '', description: '', productInfo: '', categoryId: '', images: [], isButtonContact: false });
         setErrors({ productName: '', price: '', saleRate: '', description: '', productInfo: '', categoryId: '', images: '', isButtonContact: '' });
         setProductTypes([""]);
     };
 
+    // Thêm một loại sản phẩm mới vào biểu mẫu.
     const handleAddProductType = () => {
         setProductTypes([...productTypes, ""]);
     };
     
+    // Cập nhật dữ liệu của loại sản phẩm đang được chỉnh sửa.
     const handleProductTypeChange = (index, value) => {
         const updatedProductTypes = [...productTypes];
         updatedProductTypes[index] = value;
         setProductTypes(updatedProductTypes);
     };
     
+    // Loại bỏ một loại sản phẩm khỏi biểu mẫu.
     const handleRemoveProductType = (index) => {
         const updatedProductTypes = productTypes.filter((_, i) => i !== index);
         setProductTypes(updatedProductTypes);

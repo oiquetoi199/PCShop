@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { formatLargeNumber } from "../../utils/FormatUtils";
 import { FaCaretSquareRight } from 'react-icons/fa';
 
+// Tạo cấu hình hiệu ứng trượt lên với độ trễ được truyền vào.
 const SlideUp = (delay) => {
   return {
     hidden: {
@@ -20,17 +21,21 @@ const SlideUp = (delay) => {
   };
 };
 
+// Hiển thị danh sách sản phẩm nổi bật và các thao tác liên quan.
 const ProductItem = ({ popularRecipes }) => {
   const navigate = useNavigate();
 
+  // Thêm sản phẩm cần mua và chuyển người dùng đến bước đặt hàng.
   const handleBuyNow = (id) => {
     navigate(`/product-detail/${id}`);
   };
 
+  // Chuyển người dùng đến chức năng liên hệ về sản phẩm.
   const handleContact = (id) => {
     navigate(`/product-contact/${id}`);
   };
 
+  // Mở rộng danh sách hoặc nội dung để hiển thị thêm dữ liệu.
   const handleViewMore = (id) => {
     navigate(`/category-group/${id}`);
   };

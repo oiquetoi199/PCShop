@@ -24,18 +24,21 @@ public class LogoServiceImpl implements LogoService {
     @Autowired
     private LogoRepository logoRepository;
 
+    /** Lấy thông tin logo dùng để hiển thị trên giao diện. */
     @Override
     @Transactional
     public List<Logo> getLogoList() {
         return logoRepository.findAll();
     }
 
+    /** Lấy thông tin logo dùng để hiển thị trên giao diện. */
     @Override
     @Transactional
     public Logo getLogo() {
         return logoRepository.findFirstByIsLogoTrue();
     }
 
+    /** Cập nhật thông tin logo của hệ thống. */
     @Override
     @Transactional
     public void updateLogo(LogoReqDTO logoReqDTO) throws Exception {

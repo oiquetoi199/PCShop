@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes, FaShoppingCart, FaUser, FaClipboardList, FaSignOutAlt, FaCaretDown, FaCaretUp, FaSignInAlt, FaCog } from "react-icons/fa";
 import Modal from "../../common/alert/Modal";
 
+// Hiển thị thanh điều hướng và các thao tác tài khoản, tìm kiếm, giỏ hàng.
 const Navbar = ({ handleLoginPopup, username, setUsername }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const [logo, setLogo] = useState(null);
@@ -20,11 +21,13 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
+  // Mở hoặc đóng menu điều hướng trên thiết bị di động.
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   useEffect(() => {
+    // Gọi API để kiểm tra token đăng nhập còn hiệu lực hay không.
     const fetchValidateToken = async () => {
       const token = localStorage.getItem('token');
       if (!token || token.trim() === "") {
@@ -56,6 +59,7 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
   }, [apiUrl]);
 
   useEffect(() => {
+    // Gọi API để tải logo chính hiển thị trên thanh điều hướng.
     const fetchImages = async () => {
       const response = await fetch(`${apiUrl}/logo/guest/getLogo`);
       if (response.ok) {
@@ -71,6 +75,7 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
   }, [apiUrl]);
 
   useEffect(() => {
+    // Gọi API để tải danh mục con dùng cho menu điều hướng.
     const fetchSubMenus = async () => {
       const response = await fetch(`${apiUrl}/category/guest/find-parent`);
       const data = await response.json();
@@ -86,6 +91,7 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
     }
   }, [username]);
 
+  // Xóa thông tin đăng nhập cục bộ và đưa người dùng về trạng thái chưa xác thực.
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -96,6 +102,7 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
     navigate("/");
   };
 
+  // Điều hướng người dùng đến trang giỏ hàng.
   const onCart = () => {
     const token = localStorage.getItem('token');
     if (!token || token.trim() === "") {
@@ -105,6 +112,7 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
     }
   };
 
+  // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
   const openModal = (title, message, error) => {
     setModalTitle(title);
     setModalMessage(message);
@@ -112,6 +120,7 @@ const Navbar = ({ handleLoginPopup, username, setUsername }) => {
     setIsModalOpen(true);
   };
 
+  // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
   const closeModal = () => {
     setIsModalOpen(false);
     handleLogout();

@@ -4,6 +4,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FaTiktok, FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+// Hiển thị thông tin doanh nghiệp, logo và chính sách ở cuối trang.
 const Footer = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const [logo, setLogo] = useState(null);
@@ -14,6 +15,7 @@ const Footer = () => {
 
 
   useEffect(() => {
+    // Gọi API để tải logo chính hiển thị tại phần cuối trang.
     const fetchImages = async () => {
       const response = await fetch(`${apiUrl}/logo/guest/getLogo`);
       const text = await response.text();
@@ -24,6 +26,7 @@ const Footer = () => {
     fetchImages();
   }, [apiUrl]);
 
+  // Chuẩn hóa số điện thoại theo định dạng hiển thị mong muốn.
   const formatPhoneNumber = (phone) => {
     return phone.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3");
   };

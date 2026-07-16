@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
+// Hiển thị trình soạn thảo nội dung có hỗ trợ chèn hình ảnh.
 const CustomQuillEditor = ({
   id,
   name,
@@ -16,6 +17,7 @@ const CustomQuillEditor = ({
 
   const quillRef = useRef(null);
   
+  // Chèn hình ảnh đã chọn vào vị trí hiện tại của trình soạn thảo.
   const handleImageInsert = async () => {
     if (onImageInsert) {
       const imageUrl = await onImageInsert();
@@ -44,6 +46,7 @@ const CustomQuillEditor = ({
         ["clean"],
       ],
       handlers: {
+        // Cấu hình trình xử lý chèn hình ảnh cho trình soạn thảo.
         image: () => handleImageInsert(),
       },
     },

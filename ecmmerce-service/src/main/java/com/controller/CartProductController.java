@@ -16,6 +16,7 @@ public class CartProductController {
     @Autowired
     private CartProductService cartProductService;
 
+    /** Kiểm tra và lưu sản phẩm trong giỏ hàng vào cơ sở dữ liệu. */
     @PostMapping("/save")
     public ResponseEntity<MessageResponse> save(@RequestBody CartProduct cartProduct) {
         MessageResponse messageResponse = new MessageResponse();
@@ -31,11 +32,13 @@ public class CartProductController {
         return ResponseEntity.ok().body(messageResponse);
     }
 
+    /** Lấy danh sách sản phẩm trong giỏ hàng của người dùng hiện tại và tính tổng tiền. */
     @GetMapping("/cart-list")
     public ResponseEntity<CartProductDTO> getCartList() {
         return ResponseEntity.ok().body(cartProductService.findByUsername());
     }
 
+    /** Cập nhật thông tin sản phẩm trong giỏ hàng theo dữ liệu được cung cấp. */
     @PutMapping("/update")
     public ResponseEntity<MessageResponse> update(@RequestParam String id, @RequestParam int quantity) {
         MessageResponse messageResponse = new MessageResponse();
@@ -51,6 +54,7 @@ public class CartProductController {
         return ResponseEntity.ok().body(messageResponse);
     }
 
+    /** Xóa sản phẩm trong giỏ hàng theo mã định danh. */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<MessageResponse> delete(@PathVariable String id) {
         MessageResponse messageResponse = new MessageResponse();

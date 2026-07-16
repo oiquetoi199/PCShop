@@ -5,6 +5,7 @@ import Modal from "../../../common/alert/Modal";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../common/button/Button";
 
+// Hiển thị danh sách danh mục có thể kéo thả để cập nhật thứ tự.
 const SortCategory = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [categories, setCategories] = useState([]);
@@ -18,6 +19,7 @@ const SortCategory = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // Gọi API để tải danh mục cha phục vụ kéo thả và sắp xếp.
         const fetchCategories = async () => {
             try {
                 setLoading(true);
@@ -52,6 +54,7 @@ const SortCategory = () => {
         fetchCategories();
     }, []);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -59,6 +62,7 @@ const SortCategory = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
         if (responseText === "expired") {
@@ -69,6 +73,7 @@ const SortCategory = () => {
         }
     };
 
+    // Cập nhật thứ tự dữ liệu sau khi thao tác kéo thả kết thúc.
     const onDragEnd = (result) => {
         const { destination, source } = result;
 
@@ -88,6 +93,7 @@ const SortCategory = () => {
         setCategories(updatedCategories);
     };
 
+    // Xử lý gửi biểu mẫu, gọi API tương ứng và thông báo kết quả.
     const handleSubmit = async () => {
         const token = localStorage.getItem('token');
     

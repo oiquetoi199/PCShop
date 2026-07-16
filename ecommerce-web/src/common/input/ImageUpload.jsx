@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaUpload } from 'react-icons/fa';
 
+// Hiển thị khu vực chọn, xem trước và loại bỏ hình ảnh tải lên.
 const ImageUpload = ({ images, onChange, onRemove, error, label }) => {
     return (
         <div className="col-span-1 lg:col-span-3">

@@ -29,6 +29,7 @@ public class ProductListDTO {
     private String categoryName;
     private String productType;
 
+    /** Khởi tạo đối tượng ProductListDTO với các dữ liệu ban đầu. */
     public ProductListDTO(String id, String productName, String productInfo, String description, BigDecimal price, int saleRate, String isButtonContact, String initBy, String updateBy, LocalDate createDate, LocalDate updateDate, String categoryId, String categoryName) {
         this.id = id;
         this.productName = productName;

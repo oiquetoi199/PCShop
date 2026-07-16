@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Base64;
 
 public class AuthUtils {
+    /** Lấy tên đăng nhập của người dùng đang được xác thực trong hệ thống. */
     public static String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {

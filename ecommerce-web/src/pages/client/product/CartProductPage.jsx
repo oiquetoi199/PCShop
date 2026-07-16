@@ -6,6 +6,7 @@ import Button from '../../../common/button/Button';
 import LoadingLayout from '../../../common/loading/LoadingLayout';
 import { formatLargeNumber } from '../../../utils/FormatUtils';
 
+// Hiển thị giỏ hàng, số lượng sản phẩm và tổng giá trị đơn.
 const CartProductPage = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [cartProducts, setCartProducts] = useState([]);
@@ -22,6 +23,7 @@ const CartProductPage = () => {
     const { username, setUsername } = useOutletContext();
     const navigate = useNavigate();
 
+    // Gọi API để tải giỏ hàng của người dùng và cập nhật tổng số lượng, tổng tiền.
     const fetchCartData = async () => {
         try {
             setLoading(true);
@@ -56,6 +58,7 @@ const CartProductPage = () => {
         fetchCartData();
     }, [itemIdToDelete]);
 
+    // Mở hộp thoại và thiết lập tiêu đề, nội dung cùng trạng thái hiển thị.
     const openModal = (title, message, error) => {
         setModalTitle(title);
         setModalMessage(message);
@@ -63,6 +66,7 @@ const CartProductPage = () => {
         setIsModalOpen(true);
     };
 
+    // Đóng hộp thoại và thực hiện xử lý bổ sung sau khi đóng nếu cần.
     const closeModal = () => {
         setIsModalOpen(false);
 
@@ -75,11 +79,13 @@ const CartProductPage = () => {
         }
     };
 
+    // Ghi nhận dữ liệu cần xóa và mở hộp thoại xác nhận.
     const handleDelete = (id) => {
         setItemIdToDelete(id);
         setIsOpenConfirm(true);
     };
 
+    // Gửi yêu cầu xóa dữ liệu đã xác nhận và cập nhật lại danh sách hiển thị.
     const confirmDelete = async () => {
         try {
             setIsOpenConfirm(false);
@@ -116,6 +122,7 @@ const CartProductPage = () => {
         }
     };
 
+    // Cập nhật số lượng sản phẩm và tính lại dữ liệu giỏ hàng.
     const handleQuantityChange = async (id, delta) => {
         try {
             setLoading(false);
@@ -159,6 +166,7 @@ const CartProductPage = () => {
         }
     };
 
+    // Khởi tạo thao tác mua sản phẩm từ trang chi tiết.
     const handleBuyProduct = () => {
         navigate('/order-product', {
             state: {

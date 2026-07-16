@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 import { formatLargeNumber } from "../../utils/FormatUtils";
 
+// Tạo cấu hình hiệu ứng trượt lên/
 const SlideUp = (delay) => {
   return {
     hidden: {
@@ -20,12 +21,14 @@ const SlideUp = (delay) => {
   }
 };
 
+// Hiển thị danh sách sản phẩm bán chạy trên trang chủ.
 const HotDessert = () => {
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    // Gọi API để tải danh sách sản phẩm bán chạy.
     const fetchnewsList = async () => {
       const response = await fetch(`${apiUrl}/product/guest/product-best-sale`);
       const data = await response.json();

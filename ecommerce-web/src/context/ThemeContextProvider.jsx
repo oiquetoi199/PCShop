@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 export const ThemeCotext = createContext()
 
+// Cung cấp trạng thái giao diện sáng hoặc tối cho các component con.
 const ThemeContextProvider = ({children}) => {
     const [theme, setTheme] = useState('dark')
 
@@ -12,6 +13,7 @@ const ThemeContextProvider = ({children}) => {
         }
     }, [theme])
 
+    // Chuyển đổi giữa giao diện sáng và giao diện tối.
     const toggleTheme = () => {
         setTheme(theme === "light" ? 'dark' : 'light')
     }

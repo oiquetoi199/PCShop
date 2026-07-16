@@ -19,15 +19,18 @@ public class LogoController {
     @Autowired
     private LogoService logoService;
 
+    /** Lấy thông tin logo dùng để hiển thị trên giao diện. */
     @GetMapping("/list")
     public ResponseEntity<List<Logo>> getLogoList() {
         return ResponseEntity.ok().body(logoService.getLogoList());
     }
 
+    /** Lấy thông tin logo dùng để hiển thị trên giao diện. */
     @GetMapping("/guest/getLogo")
     public ResponseEntity<Logo> getLogo() {
         return ResponseEntity.ok().body(logoService.getLogo());
     }
+    /** Cập nhật thông tin logo của hệ thống. */
     @PostMapping("/update")
     public ResponseEntity<MessageResponse> updateLogo(@ModelAttribute LogoReqDTO logoReqDTO) {
         MessageResponse messageResponse = new MessageResponse();
